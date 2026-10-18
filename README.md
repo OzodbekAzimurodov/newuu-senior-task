@@ -6,14 +6,13 @@
 
 ---
 
-## 1. Pre-Experiment Prediction (Question 1)
+### 1. Pre-Experiment Prediction (Question 1)
 
 Before modifying the command range and running the wide-range training experiments, our theoretical hypothesis was structured as follows:
 
 * **Sample Space Dilution:** Expanding the linear velocity ranges ($\text{lin\_vel\_x}$ and $\text{lin\_vel\_y}$) from $\pm 1.0\text{ m/s}$ to $\pm 2.0\text{ m/s}$ quadruples the 2D command space area ($4\text{ m}^2/\text{s}^2$ to $16\text{ m}^2/\text{s}^2$). Over a fixed training duration of 300 iterations, the agent receives significantly fewer samples per unit of velocity subspace.
 * **Reward Sparsity & Vanishing Gradients:** The tracking reward relies on an exponential kernel ($\exp(-\Vert{}v_{\text{cmd}} - v_{\text{actual}}\Vert{}^2 / \sigma^2)$). When a policy with near-zero initial speed is commanded to hit $2.0\text{ m/s}$ straight out of initialization, the velocity error is extremely large, causing the reward signal to collapse toward zero and stalling gradient propagation early on.
 * **Biomechanical & Stability Limits:** Forcing aggressive lateral movements ($\pm 2.0\text{ m/s}$ in $y$) and high-speed diagonal/backward trajectories pushes the Unitree Go2 beyond its natural trotting stability envelope. This creates a surge in tracking error (`error_vel_xy`) and trunk contact terminations (`base_contact`).
-
 ---
 
 ## 2. Experimental Results & TensorBoard Metrics (Question 2)
