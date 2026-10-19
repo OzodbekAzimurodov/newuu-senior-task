@@ -11,7 +11,7 @@
 Before modifying the command range and running the wide-range training experiments, our theoretical hypothesis was structured as follows:
 
 * **Sample Space Dilution:** Expanding the linear velocity ranges (`lin_vel_x` and `lin_vel_y`) from ±1.0 m/s to ±2.0 m/s quadruples the 2D command space area (4 m²/s² to 16 m²/s²). Over a fixed training duration of 300 iterations, the agent receives significantly fewer samples per unit of velocity subspace.
-* **Reward Sparsity & Vanishing Gradients:** The tracking reward relies on an exponential kernel ($\exp(-\Vert{}v_{\text{cmd}} - v_{\text{actual}}\Vert{}^2 / \sigma^2)$). When a policy with near-zero initial speed is commanded to hit 2.0 m/s straight out of initialization, the velocity error is extremely large, causing the reward signal to collapse toward zero and stalling gradient propagation early on.
+* **Reward Sparsity & Vanishing Gradients:** The tracking reward relies on an exponential kernel (`exp(-||v_cmd - v_actual||² / σ²)`). When a policy with near-zero initial speed is commanded to hit 2.0 m/s straight out of initialization, the velocity error is extremely large, causing the reward signal to collapse toward zero and stalling gradient propagation early on.
 * **Biomechanical & Stability Limits:** Forcing aggressive lateral movements (±2.0 m/s in $y$) and high-speed diagonal/backward trajectories pushes the Unitree Go2 beyond its natural trotting stability envelope. This creates a surge in tracking error (`error_vel_xy`) and trunk contact terminations (`base_contact`).
 
 ---
@@ -46,6 +46,6 @@ We evaluated three configurations using TensorBoard:
 * `part_b_wide_1x.mp4` — Newton visualizer screen recording of wide-range policy (1x)
 * `part_b_wide_3x.pt` — Wide-range model checkpoint (900 iters)
 * `part_b_wide_3x.mp4` — Newton visualizer screen recording of wide-range policy (3x)
-* `tensorboard/` — Captured performance graphs (`error_vel_xy.png`, `base_contact.png`, `success_rate.png`)
+* (`error_vel_xy.png`, `base_contact.png`, `success_rate.png`) — Captured performance graphs
 
 [Video Demonstrations & Recordings](https://drive.google.com/drive/folders/1gRo6jGme5pEoyssPtsX95Cx6V419z-kf?usp=sharing)
